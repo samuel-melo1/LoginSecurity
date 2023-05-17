@@ -1,30 +1,35 @@
 package com.Login.Security.service;
 
 import java.util.Optional;
-
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 import com.Login.Security.exceções.LoginException;
 import com.Login.Security.model.Usuario;
 import com.Login.Security.repository.UsuarioRepository;
 
+@Service
 public class UsuarioService {
 
     private UsuarioRepository usuarioRepository;
-    private Usuario usuario;
+    private PasswordEncoder passwordEncoder;
 
-    public UsuarioService(UsuarioRepository usuarioRepository, Usuario usuario){
+   
+    public UsuarioService(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder){
         this.usuarioRepository = usuarioRepository;
-        this.usuario = usuario;
-
+        this.passwordEncoder = passwordEncoder;
     }
 
-    public Usuario autenticar(String email, String senha){
-        Optional<Usuario> optionalUsuario = usuarioRepository.findBySenhaAndEmail(email, senha);
-        if(optionalUsuario.isPresent()){
-            usuario = optionalUsuario.get();
-            if(!usuario.getSenha().equals(optionalUsuario) && !usuario.getEmail().equals(optionalUsuario)){
-                throw new LoginException("Email ou senha incorretos");
+    public Usuario autenticar(String email, String senha) {
+        Optional<Usuario> optionalUsuario = usuarioRepository.findByEmail(email);
+        if (optionalUsuario.isPresent()) {
+            Usuario usuario = optionalUsuario.get();
+            if (passwordEncoder.matches(senha, usuario.getSenha())) {
+                return usuario;
+            } else {
+                throw new LoginException("Senha inválida");
             }
-        } 
-        return usuario;   
+        } else {
+            throw new LoginException("Usuário inexistente");
+        }
     }
 }

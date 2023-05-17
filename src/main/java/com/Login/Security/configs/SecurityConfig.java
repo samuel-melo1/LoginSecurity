@@ -18,31 +18,22 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 @EnableWebSecurity
 public class SecurityConfig {
 
-	@Bean
-public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    http.authorizeHttpRequests(requests -> requests
-            .requestMatchers("/login").permitAll()
+  @Bean
+  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    http
+        .authorizeHttpRequests(requests -> requests
+            .requestMatchers("/login").authenticated()
             .anyRequest().authenticated())
-        .formLogin(login -> login.permitAll());
-        http.formLogin(login -> login
-                .defaultSuccessUrl("/home")
-                .failureUrl("/login?error=true")
-                .permitAll());
-        http.formLogin(login -> login
-                .loginPage("/login")
-                .usernameParameter("email")
-                .passwordParameter("passcode")
-                .permitAll());
-        http.formLogin(login -> login
-                .successForwardUrl("/login_success_handler"));
-        http.formLogin(login -> login
-                .failureForwardUrl("/login_failure_handler"));
-        http.formLogin(login -> login
-                .successHandler(authenticationSuccessHandler())
-                .failureHandler(authenticationFailureHandler()));
+        .formLogin(login -> login
+            .loginPage("/login")
+            .usernameParameter("email")
+            .passwordParameter("senha")
+            .permitAll()
+            .successHandler(authenticationSuccessHandler())
+            .failureHandler(authenticationFailureHandler()));
     return http.build();
-}
-    
+  }
+
   @Bean
   public UserDetailsService userDetailsService() {
     UserDetails user = User.builder()
@@ -62,6 +53,7 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }
+
   @Bean
   AuthenticationSuccessHandler authenticationSuccessHandler() {
     return new CustomAuthenticationSuccessHandler();
@@ -72,6 +64,4 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
     return new CustomAuthenticationFailureHandler();
   }
 
-
-    
 }

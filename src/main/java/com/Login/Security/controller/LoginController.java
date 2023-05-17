@@ -22,16 +22,18 @@ public class LoginController {
   @GetMapping("/login")
   public ModelAndView login() {
     ModelAndView mv = new ModelAndView("login");
+    mv.addObject("usuario", new Usuario());
     return mv;
   }
 
   @PostMapping("/login")
-  public ModelAndView logar(@ModelAttribute("usuario") Usuario usuario,
-          HttpServletRequest request) {
-      usuario.setEmail(request.getParameter("email"));
-      usuario.setSenha(request.getParameter("senha"));
-      Usuario usuarioSalvo = usuarioService.autenticar(usuario.getEmail(), usuario.getSenha());
-      ModelAndView mv = new ModelAndView("redirect:/home");
-      return mv;
-  }
+public ModelAndView logar(@ModelAttribute("usuario") Usuario usuario,
+        HttpServletRequest request) {
+    usuario.setEmail(request.getParameter("email"));
+    usuario.setSenha(request.getParameter("senha"));
+    Usuario usuarioSalvo = usuarioService.autenticar(usuario.getEmail(), usuario.getSenha());
+    ModelAndView mv = new ModelAndView("redirect:/home");
+    mv.addObject("usuarioSalvo", usuarioSalvo);
+    return mv;
+}
 }
