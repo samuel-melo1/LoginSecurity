@@ -3,14 +3,14 @@ package com.Login.Security.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import com.Login.Security.model.Usuario;
 import com.Login.Security.repository.UsuarioRepository;
 
@@ -32,8 +32,11 @@ public class CustomUserDetailsService implements UserDetailsService {
             // Adicione as roles do usuário como GrantedAuthority, se necessário
             // authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 
+            PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            String encodedPassword = passwordEncoder.encode(usuario.getSenha());
+
             return User.withUsername(usuario.getEmail())
-                    .password(usuario.getSenha())
+                    .password(encodedPassword)
                     .authorities(authorities)
                     .build();
         } else {

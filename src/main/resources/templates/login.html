@@ -15,13 +15,14 @@
     </div>
     <form th:action="@{/login}" method="post" th:object="${usuario}">
         <p>
-            E-mail: <input type="email" th:field="*{email}" name=email required />
+            E-mail: <input type="email" th:field="*{email}" name="email" required />
         </p>
         <p>
             Senha: <input type="password" th:field="*{senha}" name="senha" required />
         </p>
         <p>
             <input type="submit" value="Login" />
+            <a href="cadastrar.html" th:href="@{cadastrar}"> cadastre-se</a>
         </p>
     </form>
 </body>

@@ -13,8 +13,7 @@ public class UsuarioService {
     private UsuarioRepository usuarioRepository;
     private PasswordEncoder passwordEncoder;
 
-   
-    public UsuarioService(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder){
+    public UsuarioService(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder) {
         this.usuarioRepository = usuarioRepository;
         this.passwordEncoder = passwordEncoder;
     }
