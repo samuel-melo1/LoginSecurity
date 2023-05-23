@@ -8,6 +8,25 @@
     <title>Document</title>
 </head>
 <body>
-    
+
+    <form th:action="@{/cadastrar}" method="post" th:object="${usuario}">
+        <div class="cadastrar">
+            <h1> Cadastrar Usuário </h1>
+            <div class="cadastrar_usuario">
+                <label for="cadastrar"> Nome </label>
+                <input type="text" name="nome" class="nome" required>
+            </div>
+            <div class="cadastrar_usuario">
+                <label for="cadastrar"> Email </label>
+                <input type="email" name="email" class="email" required>
+            </div>
+            <div class="cadastrar_usuario">
+                <label for="cadastrar"> Senha </label>
+                <input type="password" name="senha" class="senha" required>
+            </div>
+            <input type="submit" name="cadastrar" id="btn-cadastrar" value="Cadastrar">
+        </div>
+    </form>
+
 </body>
 </html>
