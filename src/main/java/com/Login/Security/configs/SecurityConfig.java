@@ -30,14 +30,17 @@ public class SecurityConfig {
     http
         .authorizeHttpRequests(requests -> requests
             .requestMatchers("/login").authenticated()
+            .requestMatchers("/cadastrar").permitAll()
             .anyRequest().authenticated())
         .formLogin(login -> login
             .loginPage("/login")
+            .defaultSuccessUrl("/home")
             .usernameParameter("email")
             .passwordParameter("senha")
             .permitAll()
             .successHandler(authenticationSuccessHandler())
             .failureHandler(authenticationFailureHandler()));
+            
     return http.build();
   }
 

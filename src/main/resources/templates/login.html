@@ -4,7 +4,6 @@
 <head>
     <title>Login</title>
 </head>
-
 <body>
     <h1>Login</h1>
     <div th:if="${param.error}">
@@ -22,9 +21,11 @@
         </p>
         <p>
             <input type="submit" value="Login" />
-            <a href="cadastrar.html" th:href="@{cadastrar}"> cadastre-se</a>
+        
+        </p>
+        <p class="link">  
+            <a href="cadastrar.html" th:href="@{/cadastrar}"> cadastre-se</a>
         </p>
     </form>
 </body>
-
 </html>

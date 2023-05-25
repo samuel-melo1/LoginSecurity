@@ -23,6 +23,12 @@ public class LoginController {
     mv.addObject("usuario", new Usuario());
     return mv;
   }
+  
+   @GetMapping("/cadastrar")
+   public ModelAndView cadastrar(){
+    ModelAndView mv = new ModelAndView("cadastrar");
+    return mv;
+   }
 
   @PostMapping("/login")
   public ModelAndView logar(@ModelAttribute("usuario") Usuario usuario) {
@@ -30,5 +36,14 @@ public class LoginController {
     ModelAndView mv = new ModelAndView("redirect:/home");
     mv.addObject("usuarioSalvo", usuarioSalvo);
     return mv;
+  }
+  
+  @PostMapping("/cadastrar")
+  public ModelAndView cadastrarUser(@ModelAttribute("usuario") Usuario usuario){
+    Usuario usuarioSalvar = usuarioService.salvarUsuario(usuario);
+    ModelAndView mv = new ModelAndView("redirect:/login");
+    mv.addObject("usuario", new Usuario());
+    return mv;
+
   }
 }
