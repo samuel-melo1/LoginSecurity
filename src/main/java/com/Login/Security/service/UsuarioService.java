@@ -7,8 +7,6 @@ import com.Login.Security.exceções.LoginException;
 import com.Login.Security.model.Usuario;
 import com.Login.Security.repository.UsuarioRepository;
 
-import jakarta.transaction.Transactional;
-
 @Service
 public class UsuarioService {
 
@@ -33,12 +31,9 @@ public class UsuarioService {
             throw new LoginException("Usuário inexistente");
         }
     }
-
-    @Transactional
     public Usuario salvarUsuario(Usuario usuario) {
         String senhaCriptografada = passwordEncoder.encode(usuario.getSenha());
         usuario.setSenha(senhaCriptografada);
         return usuarioRepository.save(usuario);
-
     }
 }

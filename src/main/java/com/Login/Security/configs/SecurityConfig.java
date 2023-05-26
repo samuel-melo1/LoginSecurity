@@ -11,9 +11,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import com.Login.Security.service.CustomUserDetailsService;
+
 
 @Configuration
 @EnableWebSecurity
@@ -29,17 +28,16 @@ public class SecurityConfig {
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
         .authorizeHttpRequests(requests -> requests
-            .requestMatchers("/login").authenticated()
+            .requestMatchers("/login").permitAll()
             .requestMatchers("/cadastrar").permitAll()
+            .requestMatchers("/home").authenticated()
             .anyRequest().authenticated())
         .formLogin(login -> login
             .loginPage("/login")
             .defaultSuccessUrl("/home")
             .usernameParameter("email")
             .passwordParameter("senha")
-            .permitAll()
-            .successHandler(authenticationSuccessHandler())
-            .failureHandler(authenticationFailureHandler()));
+            .permitAll());
             
     return http.build();
   }
@@ -59,16 +57,6 @@ public class SecurityConfig {
   @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
-  }
-
-  @Bean
-  AuthenticationSuccessHandler authenticationSuccessHandler() {
-    return new CustomAuthenticationSuccessHandler();
-  }
-
-  @Bean
-  AuthenticationFailureHandler authenticationFailureHandler() {
-    return new CustomAuthenticationFailureHandler();
   }
 
 }

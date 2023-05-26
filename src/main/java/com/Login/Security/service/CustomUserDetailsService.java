@@ -29,9 +29,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (optionalUsuario.isPresent()) {
             Usuario usuario = optionalUsuario.get();
             List<GrantedAuthority> authorities = new ArrayList<>();
-            // Adicione as roles do usuário como GrantedAuthority, se necessário
-            // authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-
             PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             String encodedPassword = passwordEncoder.encode(usuario.getSenha());
 
