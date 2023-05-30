@@ -34,12 +34,22 @@ public class SecurityConfig {
             .anyRequest().authenticated())
         .formLogin(login -> login
             .loginPage("/login")
-            .defaultSuccessUrl("/home")
             .usernameParameter("email")
             .passwordParameter("senha")
+            .successHandler(authenticationSuccessHandler())
+            .failureHandler(authenticationFailureHandler())
             .permitAll());
             
+
     return http.build();
+  }
+  @Bean
+  public CustomAuthenticationFailureHandler authenticationFailureHandler(){
+    return new CustomAuthenticationFailureHandler();
+  }
+  @Bean
+  public CustomAuthenticationSuccessHandler authenticationSuccessHandler() {
+    return new CustomAuthenticationSuccessHandler();
   }
 
   @Bean

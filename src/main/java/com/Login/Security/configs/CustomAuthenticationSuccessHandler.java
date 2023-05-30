@@ -1,4 +1,4 @@
-/* 
+
 package com.Login.Security.configs;
 
 import java.io.IOException;
@@ -24,8 +24,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
       } else {
           // Falha na autenticação
           System.out.println("Falha na autenticação");
-          response.sendRedirect("/login?error"); // Redirecionar para a página de login com parâmetro de erro, se necessário
       }
   }
 }
-*/
