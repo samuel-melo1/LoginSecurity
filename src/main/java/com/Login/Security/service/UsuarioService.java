@@ -36,4 +36,5 @@ public class UsuarioService {
         usuario.setSenha(senhaCriptografada);
         return usuarioRepository.save(usuario);
     }
+    
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -29,11 +30,10 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (optionalUsuario.isPresent()) {
             Usuario usuario = optionalUsuario.get();
             List<GrantedAuthority> authorities = new ArrayList<>();
-            PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-            String encodedPassword = passwordEncoder.encode(usuario.getSenha());
-
-            return User.withUsername(usuario.getEmail())
-                    .password(encodedPassword)
+             authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+            return User.builder()
+                    .username(usuario.getEmail())
+                    .password(usuario.getSenha()) 
                     .authorities(authorities)
                     .build();
         } else {
