@@ -5,24 +5,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../static/css/cadastro.css" th:href="@{/css/cadastro.css}" rel="stylesheet" />
     <title>Document</title>
 </head>
-<body>
 
-    <form id="cadastrar" th:action="@{/cadastrar}" method="post" th:object="${usuario}">
-        <div class="cadastrar">
-            <h1> Cadastrar Usuário </h1>
+<body>
+    <div class="container">
+        <h1>Cadastrar</h1>
+        <form id="cadastrar" th:action="@{/cadastrar}" method="post" th:object="${usuario}">
             <div class="cadastrar_usuario">
-                <label for="cadastrar"> Email </label>
-                <input type="email"   name="email" class="email"  required>
+                <label for="cadastrar">Email</label>
+                <input type="email" name="email" class="email" required>
             </div>
             <div class="cadastrar_usuario">
-                <label for="cadastrar"> Senha </label>
-                <input type="password"   name="senha" class="senha" required>
+                <label for="cadastrar">Senha</label>
+                <input type="password" name="senha" class="senha" required>
             </div>
             <input type="submit" name="cadastrar" id="btn-cadastrar" value="Cadastrar">
-        </div>
-    </form>
-
+            <p class="link">  
+                <a href="login.html" th:href="@{/login}">Voltar ao Login</a>
+            </p>
+        </form>
+    </div>
 </body>
 </html>
