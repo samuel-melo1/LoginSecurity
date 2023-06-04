@@ -30,7 +30,7 @@ public class LoginController {
     usuario.setEmail(request.getParameter("email"));
     usuario.setSenha(request.getParameter("senha"));
     Usuario usuarioSalvo = usuarioService.autenticar(usuario.getEmail(), usuario.getSenha());
-    ModelAndView mv = new ModelAndView("redirect:/home");
+    ModelAndView mv = new ModelAndView("redirect:/home?success=true");
     mv.addObject("usuarioSalvo", usuarioSalvo);
     return mv;
   }

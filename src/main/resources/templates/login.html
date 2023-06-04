@@ -8,6 +8,7 @@
     <link href="../static/css/login.css" th:href="@{/css/login.css}" rel="stylesheet" />
     <title>Login</title>
 </head>
+
 <body>
     <div class="container">
         <h1>Login</h1>
@@ -16,15 +17,16 @@
                 E-mail: <input type="email" name="email" required />
             </p>
             <p>
-                Senha: <input type="password"  name="senha" required />
+                Senha: <input type="password" name="senha" required />
             </p>
             <p>
                 <input type="submit" value="Login" />
             </p>
-            <p class="link">  
+            <p class="link">
                 <a href="cadastrar.html" th:href="@{/cadastrar}">Cadastre-se</a>
             </p>
         </form>
     </div>
 </body>
+
 </html>
